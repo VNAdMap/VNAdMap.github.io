@@ -1,6 +1,6 @@
 function initializeMap(mapId) {
     var mapOptions = {
-        center: [10.7795, 106.6999],
+        center: [10.77527241955946, 106.70624332141016],
         zoom: 10
      }
      

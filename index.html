@@ -3,9 +3,14 @@
 
 <head>
     <title>Leaflet sample</title>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
     <script src="scripts/map.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.path.drag@0.0.6/src/Path.Drag.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js"></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7.1.0/turf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/turf-area@3.0.12/index.min.js"></script>
 </head>
 
 <body>
@@ -26,6 +31,48 @@
 
         // Adding layer to the map
         map.addLayer(layer);
+
+        var districtCitiesLayer = L.geoJSON.ajax("assets/geojson/district-level-cities.geojson",
+            {
+                filter: function (feature){
+                    if(feature.geometry.type === "Polygon" || feature.geometry.type === "MultiPolygon" ){
+                        return true;
+                    }
+                },
+                onEachFeature: function (feature, layer){
+                    layer.bindPopup(feature.properties.name)
+                },
+                draggable: true
+            }
+        ).addTo(map);
+        // var hcmcDistrictsLayer = L.geoJSON.ajax("assets/geojson/hcmc-districts.geojson",
+        //     {
+        //         filter: function (feature){
+        //             if(feature.geometry.type === "Polygon" || feature.geometry.type === "MultiPolygon" ){
+        //                 return true;
+        //             }
+        //         },
+        //         onEachFeature: function (feature, layer){
+        //             layer.bindPopup(feature.properties.name)
+        //         },
+        //         draggable: true
+        //     }
+        // ).addTo(map);
+
+        var q1WardsLayer = L.geoJSON.ajax("assets/geojson/q1-wards.geojson",
+            {
+                filter: function (feature){
+                    if(feature.geometry.type === "Polygon" || feature.geometry.type === "MultiPolygon" ){
+                        return true;
+                    }
+                },
+                onEachFeature: function (feature, layer){
+                    layer.bindPopup(feature.properties.name)
+                },
+                draggable: true
+            }
+        ).addTo(map);
+
     </script>
 </body>
 
